@@ -11,7 +11,7 @@ urlpatterns = [
     path('wallets/', views.wallets, name='wallets'),
     
     # page contains wallet addresses
-    path('addresses/', views.addresses, name='addresses'),
+    path('addresses/<int:wallet_id>', views.addresses, name='addresses'),
     
     # page contains site info
     path('about/', views.about, name='about'),

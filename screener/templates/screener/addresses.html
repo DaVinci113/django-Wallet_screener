@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
 {% block content%}
-<p>ADRESSES</p>
+<p>{{wallet}} addresses:</p>
+{% for address in addresses %}
+  <li>
+      <a>{{address}}</a>
+  </li>
+{% endfor %}
 {% endblock content%}

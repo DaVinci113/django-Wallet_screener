@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import Wallet, Address
 
 # Create your views here.
 
@@ -10,12 +11,20 @@ def index(request):
 
 def wallets(request):
     """page contains list of wallets"""
-    return render(request, 'screener/wallets.html')
+    wallets = Wallet.objects.all()
+    context = {'wallets': wallets}
+    return render(request, 'screener/wallets.html', context)
 
 
-def addresses(request):
+def addresses(request, wallet_id):
     """page contains wallet addresses"""
-    return render(request, 'screener/addresses.html')
+    wallet = Wallet.objects.get(id=wallet_id)
+    addresses = wallet.address_set.all()
+    context = {
+        'wallet': wallet,
+        'addresses': addresses,
+    }
+    return render(request, 'screener/addresses.html', context)
 
 
 def about(request):
