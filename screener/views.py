@@ -1,5 +1,8 @@
 from django.shortcuts import render
-from .models import Wallet, Address
+from .models import Wallet
+from .services.parse_data import get_price
+from .services.config_parse import name_of_token
+
 
 # Create your views here.
 
@@ -20,10 +23,14 @@ def addresses(request, wallet_id):
     """page contains wallet addresses"""
     wallet = Wallet.objects.get(id=wallet_id)
     addresses = wallet.address_set.all()
+    price = dict()
+    for add in addresses:
+        chain = add.get_prefix()
+        price[name_of_token[chain]] = get_price(chain)
     context = {
-        'wallet': wallet,
         'addresses': addresses,
-    }
+        'price': price,
+        }
     return render(request, 'screener/addresses.html', context)
 
 

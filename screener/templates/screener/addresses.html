@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% block content%}
 <p>{{wallet}} addresses:</p>
-{% for address in addresses %}
-  <li>
-      <a>{{address}}</a>
-  </li>
+{% for chain in chain_list %}
+  <p>chain:{{ chain }}</p>
 {% endfor %}
+    <ul>
+        <p>{{ price }}</p>
+    </ul>
 {% endblock content%}
