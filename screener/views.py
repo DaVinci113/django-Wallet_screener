@@ -30,6 +30,7 @@ def addresses(request, wallet_id):
     context = {
         'addresses': addresses,
         'price': price,
+        'wallet': wallet,
         }
     return render(request, 'screener/addresses.html', context)
 

@@ -22,7 +22,7 @@ name_of_chain = {
     'nolus': 'nolus-io',
     'archway': 'ARCHWAY',
     'injective': 'INJECTIVE',
-    'osmosis': 'osmosis',
+    'osmo': 'osmosis',
     'dym': 'dymension',
     'saga': 'saga'
 }
@@ -36,7 +36,7 @@ name_of_token = {
     'nolus': 'NOLUS',
     'archway': 'ARCHWAY',
     'injective': 'INJECTIVE',
-    'osmosis': 'OSMO',
+    'osmo': 'OSMO',
     'dym': 'DYM',
     'saga': 'SAGA'
 }
