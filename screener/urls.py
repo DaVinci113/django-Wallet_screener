@@ -7,8 +7,8 @@ urlpatterns = [
     # Home page
     path('', views.index, name='index'),
     
-    # page contains list of wallets
-    path('wallets/', views.wallets, name='wallets'),
+    # page contains list of user wallets
+    path('user_wallets/', views.user_wallets, name='user_wallets'),
     
     # page contains wallet addresses
     path('addresses/<int:wallet_id>', views.addresses, name='addresses'),

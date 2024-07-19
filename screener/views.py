@@ -35,6 +35,13 @@ def addresses(request, wallet_id):
     return render(request, 'screener/addresses.html', context)
 
 
+def user_wallets(request):
+    context = {
+        'user_wallets': Wallet.objects.filter(wallet_owner=request.user)
+    }
+    return render(request, 'screener/user_wallets.html', context)
+
+
 def about(request):
     """page contains site info"""
     return render(request, 'screener/about.html')
