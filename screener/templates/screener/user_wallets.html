@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% block content%}
-<p>WALLETS</p>
-{% for wallet in user_wallets %}
-<li>
-    <a href="{% url 'screener:addresses' wallet.id %}">{{ wallet }}</a>
-</li>
-{% endfor %}
+  <p>WALLETS</p>
+  {% for wallet in user_wallets %}
+    <li>
+      <a href="{% url 'screener:addresses' wallet.id %}">{{ wallet }}</a>
+    </li>
+  {% endfor %}
+  <a href="{% url 'screener:add_wallet'%}">Add new wallet</a>
 {% endblock content%}

@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Wallet
 from .services.parse_data import get_price
 from .services.config_parse import name_of_token
+from .forms import WalletForm, AdressForm
 
 
 # Create your views here.
@@ -17,6 +18,36 @@ def wallets(request):
     wallets = Wallet.objects.all()
     context = {'wallets': wallets}
     return render(request, 'screener/wallets.html', context)
+
+
+def user_wallets(request):
+    context = {
+        'user_wallets': Wallet.objects.filter(wallet_owner=request.user)
+    }
+    return render(request, 'screener/user_wallets.html', context)
+    
+    
+def get_form_kwargs(self):
+    """Необходимо учитывать, что текущий пользователь у нас может быть не залогинен."""
+    kwargs = super().get_form_kwargs()
+    kwargs.update({
+        'user_info': self.request.user if self.request.user.is_authenticated else None,
+    })
+    return kwargs
+
+
+def add_wallet(request):
+    if request.method != 'POST':
+        form = WalletForm()
+    else:
+        form = WalletForm(data=request.POST)
+        if form.is_valid():
+            wallet = form.save(commit=False)
+            wallet.wallet_owner = request.user
+            wallet.save()
+            return redirect('screener:user_wallets')
+    context = {'form': form}
+    return render(request, 'screener/add_wallet.html', context)
 
 
 def addresses(request, wallet_id):
@@ -37,15 +68,26 @@ def addresses(request, wallet_id):
         add_some_address = 'Add some address'
         context = {
             'Add some address': add_some_address,
+            'wallet': wallet
         }
     return render(request, 'screener/addresses.html', context)
 
 
-def user_wallets(request):
+def add_address(request, wallet):
+    if request.method != 'POST':
+        form = AdressForm()
+    else:
+        form = AdressForm(data=request.POST)
+        if form.is_valid():
+            address = form.save(commit=False)
+            address.address_wallet = request.wallet
+            address.save()
+            return redirect('screener:addresses')
     context = {
-        'user_wallets': Wallet.objects.filter(wallet_owner=request.user)
+        'form': form,
+        'wallet': wallet,
     }
-    return render(request, 'screener/user_wallets.html', context)
+    return render(request, 'screener/add_address', context)
 
 
 def about(request):

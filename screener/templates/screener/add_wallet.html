@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content%}
+  <p>Add new wallet:</p>
+  <form action="{% url 'screener:add_wallet' %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">add wallet</button>
+  </form>
+{% endblock content%}

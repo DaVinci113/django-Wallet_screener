@@ -5,6 +5,9 @@
     <title>Title</title>
 </head>
 <body>
+{% if user.is_authenticated %}
+  Hello, {{ user.username }}
+{% endif%}
 <p>
     <a href="{% url 'screener:index' %}">Main page</a> |
     <a href="{% url 'screener:user_wallets' %}">Wallets</a> |

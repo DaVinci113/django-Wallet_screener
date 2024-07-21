@@ -10,8 +10,14 @@ urlpatterns = [
     # page contains list of user wallets
     path('user_wallets/', views.user_wallets, name='user_wallets'),
     
+    # add wallet
+    path('add_wallet/', views.add_wallet, name='add_wallet'),
+    
     # page contains wallet addresses
     path('addresses/<int:wallet_id>', views.addresses, name='addresses'),
+    
+    # add address
+    path('add_address/', views.add_address, name='add_address'),
     
     # page contains site info
     path('about/', views.about, name='about'),
