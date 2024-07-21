@@ -1,8 +1,8 @@
-from screener.models import Wallet
 import requests
 from bs4 import BeautifulSoup
-from .config_parse import headers_price, name_of_chain
+from .config_parse import headers, cookies, name_of_chain
 import time
+
 
 def address_to_chain(address):
     return address[:-39]
@@ -13,9 +13,12 @@ def get_amount_data():
 
 
 def get_price(prefix):
-    time.sleep(0.1)
-    response = requests.get(f'https://coinmarketcap.com/currencies/{name_of_chain[prefix]}/', headers=headers_price)
+    time.sleep(0.2)
+    response = requests.get(
+        f'https://coinmarketcap.com/currencies/{name_of_chain[prefix]}/',
+        cookies=cookies,
+        headers=headers,
+    )
     soup = BeautifulSoup(response.text)
-    data = soup.find('div', class_='sc-d1ede7e3-0 gNSoet flexStart alignBaseline')
-    price = data.find('span').text
+    price = soup.find(class_='sc-65e7f566-0 clvjgF base-text').text
     return price[1::]

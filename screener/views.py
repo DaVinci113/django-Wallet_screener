@@ -23,14 +23,20 @@ def addresses(request, wallet_id):
     """page contains wallet addresses"""
     wallet = Wallet.objects.get(id=wallet_id)
     addresses = wallet.address_set.all()
-    price = dict()
-    for add in addresses:
-        chain = add.get_prefix()
-        price[name_of_token[chain]] = get_price(chain)
-    context = {
-        'addresses': addresses,
-        'price': price,
-        'wallet': wallet,
+    if addresses:
+        price = dict()
+        for add in addresses:
+            chain = add.get_prefix()
+            price[name_of_token[chain]] = get_price(chain)
+        context = {
+            'addresses': addresses,
+            'price': price,
+            'wallet': wallet,
+            }
+    else:
+        add_some_address = 'Add some address'
+        context = {
+            'Add some address': add_some_address,
         }
     return render(request, 'screener/addresses.html', context)
 
