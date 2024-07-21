@@ -10,5 +10,5 @@
   <ul>
     <p>{{ price }}</p>
   </ul>
-  <a href="{% url 'screener:add_address' %}">Add new address in {{wallet}}-wallet</a>
+  <a href="{% url 'screener:add_address' wallet.id %}">Add new address in {{wallet}}-wallet</a>
 {% endblock content%}

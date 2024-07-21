@@ -13,7 +13,7 @@ def get_amount_data():
 
 
 def get_price(prefix):
-    time.sleep(0.2)
+    time.sleep(0.1)
     response = requests.get(
         f'https://coinmarketcap.com/currencies/{name_of_chain[prefix]}/',
         cookies=cookies,

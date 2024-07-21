@@ -2,9 +2,9 @@
 
 {% block content%}
   <p>Add new address in {{wallet}}-wallet:</p>
-  <form action="{% url 'screener:add_address' %}" method="POST">
+  <form action="{% url 'screener:add_address' wallet.id %}" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <button name="submit">add wallet</button>
+    <button name="submit">add new address in {{ wallet }}-wallet</button>
   </form>
 {% endblock content%}

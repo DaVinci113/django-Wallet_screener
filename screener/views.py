@@ -26,15 +26,6 @@ def user_wallets(request):
     }
     return render(request, 'screener/user_wallets.html', context)
     
-    
-def get_form_kwargs(self):
-    """Необходимо учитывать, что текущий пользователь у нас может быть не залогинен."""
-    kwargs = super().get_form_kwargs()
-    kwargs.update({
-        'user_info': self.request.user if self.request.user.is_authenticated else None,
-    })
-    return kwargs
-
 
 def add_wallet(request):
     if request.method != 'POST':
@@ -42,9 +33,9 @@ def add_wallet(request):
     else:
         form = WalletForm(data=request.POST)
         if form.is_valid():
-            wallet = form.save(commit=False)
-            wallet.wallet_owner = request.user
-            wallet.save()
+            form = form.save(commit=False)
+            form.wallet_owner = request.user
+            form.save()
             return redirect('screener:user_wallets')
     context = {'form': form}
     return render(request, 'screener/add_wallet.html', context)
@@ -73,21 +64,22 @@ def addresses(request, wallet_id):
     return render(request, 'screener/addresses.html', context)
 
 
-def add_address(request, wallet):
+def add_address(request, wallet_id):
+    wallet = Wallet.objects.get(id=wallet_id)
     if request.method != 'POST':
         form = AdressForm()
     else:
         form = AdressForm(data=request.POST)
         if form.is_valid():
-            address = form.save(commit=False)
-            address.address_wallet = request.wallet
-            address.save()
-            return redirect('screener:addresses')
+            form = form.save(commit=False)
+            form.wallet = wallet
+            form.save()
+            return redirect('screener:addresses', wallet_id=wallet.id)
     context = {
         'form': form,
         'wallet': wallet,
     }
-    return render(request, 'screener/add_address', context)
+    return render(request, 'screener/add_address.html', context)
 
 
 def about(request):
