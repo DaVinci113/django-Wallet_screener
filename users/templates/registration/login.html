@@ -1,5 +1,3 @@
-{% extends 'base.html' %}
-
 {% block content %}
 
   {% if form.errors %}
@@ -8,6 +6,13 @@
       {% csrf_token %}
       {{ form.as_p }}
 
-      <button name="submit">log in</button>
+      <button name="submit">LOG IN</button>
+  </form>
+
+  <a href="{% url 'users:register' %}">Sign up</a>
+
+  <form action="{% url 'users:register' %}" method="get">
+    {% csrf_token %}
+    <button type="submit">SIGN UP</button>
   </form>
 {% endblock content %}
