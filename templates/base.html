@@ -7,13 +7,20 @@
 <body>
 {% if user.is_authenticated %}
   Hello, {{ user.username }}
-{% endif%}
-<p>
+    <form action="{% url 'users:logout' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p}}
+        <button type="submit" class="btn btn-success">Logout</button>
+    </form>
+  <p>
     <a href="{% url 'screener:index' %}">Main page</a> |
     <a href="{% url 'screener:user_wallets' %}">Wallets</a> |
     <a href="{% url 'screener:about' %}">About</a> |
     <a href="{% url 'screener:contacts' %}">Ours contacts</a>
-</p>
+  </p>
+{% else %}
+  <a href="{% url 'users:login' %}">Log in</a>
+{% endif %}
 {% block content %}
 {% endblock content%}
 </body>

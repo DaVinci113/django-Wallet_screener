@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  {% if form.errors %}
+  {% endif %}
+  <form method="POST" action="{% url 'users:login' %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+
+      <button name="submit">log in</button>
+  </form>
+{% endblock content %}
