@@ -19,6 +19,8 @@ urlpatterns = [
     # add address
     path('user_wallets/add_address/<int:wallet_id>/', views.add_address, name='add_address'),
     
+    path('user_wallets/del_address/<int:address_id>/', views.del_address, name='del_address'),
+    
     # page contains site info
     path('about/', views.about, name='about'),
     

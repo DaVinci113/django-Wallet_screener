@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from .models import Wallet
+from django.shortcuts import render, redirect, reverse
+from .models import Wallet, Address
 from .services.parse_data import get_price
 from .services.config_parse import name_of_token
 from .forms import WalletForm, AdressForm
@@ -41,6 +41,13 @@ def add_wallet(request):
     return render(request, 'screener/add_wallet.html', context)
 
 
+def del_wallet(request, wallet_id):
+    wallet = Wallet.objects.filter(id=wallet_id)
+    if request.method == 'DELETE':
+        wallet.delete()
+    
+
+
 def addresses(request, wallet_id):
     """page contains wallet addresses"""
     wallet = Wallet.objects.get(id=wallet_id)
@@ -80,6 +87,13 @@ def add_address(request, wallet_id):
         'wallet': wallet,
     }
     return render(request, 'screener/add_address.html', context)
+
+
+def del_address(request, address_id):
+    address = Address.objects.get(id=address_id)
+    wallet_id = address.wallet_id
+    address.delete()
+    return redirect('screener:addresses', wallet_id)
 
 
 def about(request):

@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.shortcuts import reverse
+
 
 # Create your models here.
 
@@ -23,3 +25,5 @@ class Address(models.Model):
     def get_prefix(self):
         return str(self.address)[:-39]
     
+    def delete_address(self):
+        return reverse('screener:del_address', kwargs={'id', self.pk})
