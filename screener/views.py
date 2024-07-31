@@ -14,13 +14,14 @@ def index(request):
 
 
 def wallets(request):
-    """page contains list of wallets"""
+    """page contains list of all wallets"""
     wallets = Wallet.objects.all()
     context = {'wallets': wallets}
     return render(request, 'screener/wallets.html', context)
 
 
 def user_wallets(request):
+    """page contains list of user wallets"""
     context = {
         'user_wallets': Wallet.objects.filter(wallet_owner=request.user)
     }
@@ -28,6 +29,7 @@ def user_wallets(request):
     
 
 def add_wallet(request):
+    """Add wallet to user"""
     if request.method != 'POST':
         form = WalletForm()
     else:
@@ -41,12 +43,16 @@ def add_wallet(request):
     return render(request, 'screener/add_wallet.html', context)
 
 
-def del_wallet(request, wallet_id):
-    wallet = Wallet.objects.filter(id=wallet_id)
-    if request.method == 'DELETE':
-        wallet.delete()
-    
+def edit_portfolio(request, wallet_id):
+    return render(request, 'screener/edit_portfolio.html')
 
+
+def del_wallet(request, wallet_id):
+    """Del user wallet"""
+    wallet = Wallet.objects.get(id=wallet_id)
+    wallet.delete()
+    return redirect('screener:user_wallets')
+    
 
 def addresses(request, wallet_id):
     """page contains wallet addresses"""
@@ -72,6 +78,7 @@ def addresses(request, wallet_id):
 
 
 def add_address(request, wallet_id):
+    """Add address to user wallet"""
     wallet = Wallet.objects.get(id=wallet_id)
     if request.method != 'POST':
         form = AdressForm()
@@ -90,6 +97,7 @@ def add_address(request, wallet_id):
 
 
 def del_address(request, address_id):
+    """Delete address from user wallet"""
     address = Address.objects.get(id=address_id)
     wallet_id = address.wallet_id
     address.delete()

@@ -7,7 +7,7 @@
       {{ address }}
       <form method="post" action="{% url 'screener:del_address' address.id %}">
         {% csrf_token %}
-        <button onclick="return confirm('Are you sure?')" type="submit">
+        <button onclick="return confirm('Delete {{address}}. Are you sure?')" type="submit">
           Delete
         </button>
       </form>
