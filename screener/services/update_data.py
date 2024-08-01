@@ -12,6 +12,6 @@ def update_data(user_id):
             addr.available = data['info']['available']
             addr.reward = data['info']['reward']
             addr.save()
-            return 'Data is update'
+    return 'Data is update'
          
             

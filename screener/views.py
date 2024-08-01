@@ -86,12 +86,10 @@ def addresses(request, wallet_id):
 
 def address_info(request, address_id):
     address = Address.objects.get(id=address_id)
-    data = get_token_amount_complete(address)
     context = {
-        'staked': data['info']['stake'],
-        'available': data['info']['available'],
-        'reward': data['info']['reward'],
-        'price': data['price'],
+        'staked': address.staked,
+        'available': address.available,
+        'reward': address.reward,
         'address': address
     }
     return render(request, 'screener/address_info.html', context)
