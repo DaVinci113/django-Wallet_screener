@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, reverse
 from .models import Wallet, Address
-from .services.parse_data import get_token_amount_complete
 from .forms import WalletForm, AdressForm
+from .services.parse_data import get_token_amount_complete
+from .services.update_data import update_data
 
 
 # Create your views here.
@@ -9,7 +10,10 @@ from .forms import WalletForm, AdressForm
 
 def index(request):
     """Home page"""
-    return render(request, 'screener/index.html')
+    context = {
+        'text': update_data(request.user),
+    }
+    return render(request, 'screener/index.html', context)
 
 
 def wallets(request):
