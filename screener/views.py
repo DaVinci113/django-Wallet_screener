@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 from .models import Wallet, Address
-from .services.parse_data import get_price
-from .services.config_parse import name_of_token
+from .services.parse_data import get_token_amount_complete
 from .forms import WalletForm, AdressForm
 
 
@@ -26,7 +25,16 @@ def user_wallets(request):
         'user_wallets': Wallet.objects.filter(wallet_owner=request.user)
     }
     return render(request, 'screener/user_wallets.html', context)
-    
+
+
+def user_wallet_info(request, wallet_id):
+    wallet = Wallet.objects.get(id=wallet_id)
+    addresses_list = wallet.address_set.all()
+    context = {
+        'info': get_token_amount_complete(addresses_list),
+    }
+    return render(request, 'screener/user_wallet_info.html', context)
+
 
 def add_wallet(request):
     """Add wallet to user"""
@@ -52,29 +60,37 @@ def del_wallet(request, wallet_id):
     wallet = Wallet.objects.get(id=wallet_id)
     wallet.delete()
     return redirect('screener:user_wallets')
-    
+
 
 def addresses(request, wallet_id):
     """page contains wallet addresses"""
     wallet = Wallet.objects.get(id=wallet_id)
     addresses = wallet.address_set.all()
     if addresses:
-        price = dict()
-        for add in addresses:
-            chain = add.get_prefix()
-            price[name_of_token[chain]] = get_price(chain)
         context = {
             'addresses': addresses,
-            'price': price,
-            'wallet': wallet,
-            }
+            'wallet': wallet
+        }
     else:
-        add_some_address = 'Add some address'
+        text = 'No added addresses'
         context = {
-            'Add some address': add_some_address,
+            'text': text,
             'wallet': wallet
         }
     return render(request, 'screener/addresses.html', context)
+
+
+def address_info(request, address_id):
+    address = Address.objects.get(id=address_id)
+    data = get_token_amount_complete(address)
+    context = {
+        'staked': data['info']['stake'],
+        'available': data['info']['available'],
+        'reward': data['info']['reward'],
+        'price': data['price'],
+        'address': address
+    }
+    return render(request, 'screener/address_info.html', context)
 
 
 def add_address(request, wallet_id):

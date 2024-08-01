@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from .services.config_parse import name_of_token, name_of_chain
+from .services.parse_data import get_price
 from django.shortcuts import reverse
 
 
@@ -19,11 +21,6 @@ class Address(models.Model):
     wallet = models.ForeignKey(Wallet, on_delete=models.CASCADE)
     address = models.CharField(max_length=50)
     
+    
     def __str__(self):
         return self.address
-    
-    def get_prefix(self):
-        return str(self.address)[:-39]
-    
-    def delete_address(self):
-        return reverse('screener:del_address', kwargs={'id', self.pk})

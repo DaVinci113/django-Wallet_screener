@@ -2,19 +2,20 @@
 
 {% block content %}
   <p>{{wallet}}-wallet addresses:</p>
-  {% for address in addresses %}
-    <li>
-      {{ address }}
-      <form method="post" action="{% url 'screener:del_address' address.id %}">
-        {% csrf_token %}
-        <button onclick="return confirm('Delete {{address}}. Are you sure?')" type="submit">
-          Delete
-        </button>
-      </form>
-    </li>
-  {% endfor%}
+  <p>{{text}}</p>
+    {% for address in addresses %}
+      <li>
+        {{ address }} <a href="{% url 'screener:address_info' address.id %}">address info</a>
+        <form method="post" action="{% url 'screener:del_address' address.id %}">
+          {% csrf_token %}
+          <button onclick="return confirm('Delete {{address}}. Are you sure?')" type="submit">
+            Delete
+          </button>
+        </form>
+      </li>
+    {% endfor%}
   <ul>
-    <p>{{ price }}</p>
+    <p>{{ token_info }}</p>
   </ul>
-  <a href="{% url 'screener:add_address' wallet.id %}">Add new address in {{wallet}}-wallet</a>
+  <a href="{% url 'screener:add_address' wallet.id %}">Add new address</a>
 {% endblock content%}
