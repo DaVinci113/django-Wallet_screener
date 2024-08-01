@@ -2,9 +2,15 @@
 {% block content%}
   <p>WALLETS</p>
   {% for wallet in user_wallets %}
-    <li>
       <a href="{% url 'screener:addresses' wallet.id %}">{{ wallet }}</a>
-    </li>
+      <a href="{% url 'screener:user_wallet_info' wallet.id %}">wallet info</a>
+      <a href="{% url 'screener:del_wallet' wallet.id %}" class="ui button red"></a>
+        <form method="post" action="{% url 'screener:del_wallet' wallet.id %}">
+          {% csrf_token %}
+          <button onclick="return confirm('Delete {{wallet}}. Are you sure?')" type="submit">
+            Delete
+          </button>
+        </form>
   {% endfor %}
-  <a href="{% url 'screener:add_wallet'%}">Add new wallet</a>
+  <a href="{% url 'screener:add_wallet' %}">Add wallet</a>
 {% endblock content%}

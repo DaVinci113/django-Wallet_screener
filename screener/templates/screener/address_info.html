@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <p>
+      address: {{ address }}
+  </p>
+  <ul>
+      <p>staked: {{ staked }}</p>
+      <p>available: {{ available }}</p>
+      <p>reward: {{ reward }}</p>
+      <p>current price: {{ price }}</p>
+  </ul>
+{% endblock content%}
