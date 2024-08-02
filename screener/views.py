@@ -3,6 +3,7 @@ from .models import Wallet, Address
 from .forms import WalletForm, AdressForm
 from .services.parse_data import get_token_amount_complete
 from .services.update_data import update_data
+from .services.download_data_from_db import address_data_db, wallet_data_db
 
 
 # Create your views here.
@@ -32,10 +33,8 @@ def user_wallets(request):
 
 
 def user_wallet_info(request, wallet_id):
-    wallet = Wallet.objects.get(id=wallet_id)
-    addresses_list = wallet.address_set.all()
     context = {
-        'info': get_token_amount_complete(addresses_list),
+        'info': wallet_data_db(wallet_id),
     }
     return render(request, 'screener/user_wallet_info.html', context)
 

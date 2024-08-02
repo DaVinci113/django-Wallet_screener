@@ -1,8 +1,5 @@
 {% extends 'base.html' %}
 {% block content%}
-  <p>WALLETS</p>
-  {% for wallet in user_wallets %}
-      <a href="{% url 'screener:addresses' wallet.id %}">{{ wallet }}</a>
-  {% endfor %}
-  <a href="{% url 'screener:add_wallet' %}">Add wallet</a>
+  <p>INFO about {{ wallet }}</p>
+  <p>{{address}}{{info}}</p>
 {% endblock content%}

@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from .config_parse import params, headers, headers_ng, cookies, name_of_chain, name_of_token, devision
+from .config_parse import params, headers, headers_ng, cookies, name_of_chain, devision
 import time
 
 
