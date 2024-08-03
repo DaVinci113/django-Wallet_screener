@@ -30,8 +30,9 @@ def user_wallets(request):
 
 
 def user_wallet_info(request, wallet_id):
+    
     context = {
-        'info': wallet_data_db(wallet_id),
+        'data': wallet_data_db(wallet_id)
     }
     return render(request, 'screener/user_wallet_info.html', context)
 

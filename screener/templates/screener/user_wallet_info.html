@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 {% block content%}
   <p>INFO about {{ wallet }}</p>
-  <p>{{address}}{{info}}</p>
+  {% for key, value in data.items %}
+  <ul>
+    {{ key }}{{ value }}
+  </ul>
+  {% endfor %}
 {% endblock content%}
