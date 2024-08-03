@@ -12,10 +12,6 @@ def get_prefix(address):
     return address[:-39]
 
 
-def get_address(address):
-    return address[-39::]
-
-
 def get_price(prefix):
     time.sleep(0.1)
     response = requests.get(

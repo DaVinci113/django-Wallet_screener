@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect
 from .models import Wallet, Address
 from .forms import WalletForm, AdressForm
-from .services.parse_data import get_token_amount_complete
-from .services.update_data import update_data
-from .services.download_data_from_db import address_data_db, wallet_data_db
+from .services.update_data import update_amount, update_token_info_table
+from .services.download_data_from_db import wallet_data_db, address_data_db, download_price
+from .services.create_chain_table import get_table_fill
 
 
 # Create your views here.
@@ -11,10 +11,7 @@ from .services.download_data_from_db import address_data_db, wallet_data_db
 
 def index(request):
     """Home page"""
-    context = {
-        'text': update_data(request.user),
-    }
-    return render(request, 'screener/index.html', context)
+    return render(request, 'screener/index.html')
 
 
 def wallets(request):
@@ -83,13 +80,33 @@ def addresses(request, wallet_id):
     return render(request, 'screener/addresses.html', context)
 
 
+def update_amount_data(request):
+    """ update token amount for all user addresses """
+    context = {
+        'text': update_amount(request.user),
+    }
+    return render(request, 'screener/index.html', context)
+
+
+def update_data(request):
+    """ Update list of chain and price for all supported token """
+    context = {
+        'text': update_token_info_table(),
+    }
+    return render(request, 'screener/index.html', context)
+
+
+def table_fill(request):
+    context = {
+        'text': get_table_fill()
+    }
+    return render(request, 'screener/index.html', context)
+
+
 def address_info(request, address_id):
     address = Address.objects.get(id=address_id)
     context = {
-        'staked': address.staked,
-        'available': address.available,
-        'reward': address.reward,
-        'address': address
+        'data': address_data_db(address)
     }
     return render(request, 'screener/address_info.html', context)
 

@@ -5,9 +5,11 @@
       address: {{ address }}
   </p>
   <ul>
-      <p>staked: {{ staked }}</p>
-      <p>available: {{ available }}</p>
-      <p>reward: {{ reward }}</p>
-      <p>current price: {{ price }}</p>
+      <p>current price: {{ data.price }}</p>
+      <p>staked: {{ data.staked }}</p>
+      <p>available: {{ data.available }}</p>
+      <p>reward: {{ data.reward }}</p>
+      <p> all token: {{ data.all }}</p>
+      <p> all token price: {{ data.coast }}</p>
   </ul>
 {% endblock content%}
