@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from .config_parse import params, headers, headers_ng, cookies, name_of_chain, name_of_token, devision
+from .config_parse import params, headers, headers_ng, cookies, name_of_chain, devision
 import time
 
 
@@ -10,10 +10,6 @@ def address_to_chain(address):
 
 def get_prefix(address):
     return address[:-39]
-
-
-def get_address(address):
-    return address[-39::]
 
 
 def get_price(prefix):

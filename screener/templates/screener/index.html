@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content%}
 <p>MAIN PAGE</p>
+<p><a href="{% url 'screener:update' %}">Update page</a></p>
 <p>{{ text }}</p>
 {% endblock content%}

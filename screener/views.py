@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect
 from .models import Wallet, Address
 from .forms import WalletForm, AdressForm
-from .services.parse_data import get_token_amount_complete
-from .services.update_data import update_data
+from .services.update_data import update_amount, update_token_info_table
+from .services.download_data_from_db import wallet_data_db, address_data_db, user_portfolio_data_db
+from .services.create_chain_table import get_table_fill
 
 
 # Create your views here.
@@ -10,10 +11,15 @@ from .services.update_data import update_data
 
 def index(request):
     """Home page"""
+    return render(request, 'screener/index.html')
+
+
+def portfolio(request):
+    data = user_portfolio_data_db(request.user)
     context = {
-        'text': update_data(request.user),
+        'data': data,
     }
-    return render(request, 'screener/index.html', context)
+    return render(request, 'screener/portfolio.html', context)
 
 
 def wallets(request):
@@ -32,10 +38,10 @@ def user_wallets(request):
 
 
 def user_wallet_info(request, wallet_id):
-    wallet = Wallet.objects.get(id=wallet_id)
-    addresses_list = wallet.address_set.all()
+    data = wallet_data_db(wallet_id)
+    
     context = {
-        'info': get_token_amount_complete(addresses_list),
+        'data': data,
     }
     return render(request, 'screener/user_wallet_info.html', context)
 
@@ -84,13 +90,37 @@ def addresses(request, wallet_id):
     return render(request, 'screener/addresses.html', context)
 
 
+def update(request):
+    return render(request, 'screener/update.html')
+
+
+def update_amount_data(request):
+    """ update token amount for all user addresses """
+    context = {
+        'text': update_amount(request.user),
+    }
+    return render(request, 'screener/index.html', context)
+
+
+def update_data(request):
+    """ Update list of chain and price for all supported token """
+    context = {
+        'text': update_token_info_table(),
+    }
+    return render(request, 'screener/index.html', context)
+
+
+def table_fill(request):
+    context = {
+        'text': get_table_fill()
+    }
+    return render(request, 'screener/index.html', context)
+
+
 def address_info(request, address_id):
     address = Address.objects.get(id=address_id)
     context = {
-        'staked': address.staked,
-        'available': address.available,
-        'reward': address.reward,
-        'address': address
+        'data': address_data_db(address)
     }
     return render(request, 'screener/address_info.html', context)
 

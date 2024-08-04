@@ -58,11 +58,15 @@ name_of_chain = {
     'juno': 'JUNO',
     'nolus': 'nolus-io',
     'archway': 'ARCHWAY',
-    'injective': 'INJECTIVE',
+    'inj': 'INJECTIVE',
     'osmo': 'osmosis',
     'dym': 'dymension',
     'saga': 'saga'
 }
+
+list_of_support_chain = [
+    'cosmos', 'osmo', 'celestia', 'dym', 'inj', 'juno', 'archway', 'evmos', 'nolus', 'kujira', 'saga',
+]
 
 name_of_token = {
     'cosmos': 'ATOM',
@@ -91,3 +95,4 @@ devision = {
     'dymension': 10**18,
     'saga': 10**6,
 }
+
