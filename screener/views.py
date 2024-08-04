@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Wallet, Address
 from .forms import WalletForm, AdressForm
 from .services.update_data import update_amount, update_token_info_table
-from .services.download_data_from_db import wallet_data_db, address_data_db, download_price
+from .services.download_data_from_db import wallet_data_db, address_data_db, user_portfolio_data_db
 from .services.create_chain_table import get_table_fill
 
 
@@ -12,6 +12,14 @@ from .services.create_chain_table import get_table_fill
 def index(request):
     """Home page"""
     return render(request, 'screener/index.html')
+
+
+def portfolio(request):
+    data = user_portfolio_data_db(request.user)
+    context = {
+        'data': data,
+    }
+    return render(request, 'screener/portfolio.html', context)
 
 
 def wallets(request):

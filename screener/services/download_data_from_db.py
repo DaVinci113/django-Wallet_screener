@@ -37,4 +37,12 @@ def wallet_data_db(user_wallet):
         wallet_data['$'] += wallet_data[address]['coast']
     return wallet_data
 
-
+def user_portfolio_data_db(user):
+    user_wallets = Wallet.objects.filter(wallet_owner=user)
+    portfolio_data = {
+        'portfolio $': int(),
+    }
+    for user_wallet in user_wallets:
+        portfolio_data[user_wallet] = wallet_data_db(user_wallet.id)
+        portfolio_data['portfolio $'] += portfolio_data[user_wallet]['$']
+    return portfolio_data

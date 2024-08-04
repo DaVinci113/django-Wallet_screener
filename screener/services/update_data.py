@@ -4,7 +4,7 @@ from .parse_data import get_token_amount_complete, get_prefix, get_price
 
 
 def update_amount(user_id):
-    """ Update staked, available and reward amount"""
+    """ Update staked, available and reward amount for user """
     wallets = Wallet.objects.filter(wallet_owner=user_id)
     for wallet in wallets:
         for address in wallet.address_set.all():

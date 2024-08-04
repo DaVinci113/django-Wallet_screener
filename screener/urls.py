@@ -7,6 +7,9 @@ urlpatterns = [
     # Home page
     path('', views.index, name='index'),
     
+    # page contains portfolio info
+    path('portfolio/', views.portfolio, name='portfolio'),
+    
     # page contains list of user wallets
     path('user_wallets/', views.user_wallets, name='user_wallets'),
     
