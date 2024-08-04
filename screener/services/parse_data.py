@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from .config_parse import params, headers, headers_ng, cookies, name_of_chain, devision
+from .config_parse import params, headers, headers_ng, cookies, name_of_chain, devision, time_out
 import time
 
 
@@ -13,7 +13,7 @@ def get_prefix(address):
 
 
 def get_price(prefix):
-    time.sleep(0.1)
+    time.sleep(time_out)
     response = requests.get(
         f'https://coinmarketcap.com/currencies/{name_of_chain[prefix]}/',
         cookies=cookies,
@@ -27,7 +27,7 @@ def get_price(prefix):
 def get_token_amount_cosmostation(chain, user_address):
     
     try:
-        time.sleep(0.1)
+        time.sleep(time_out)
         response_staked = requests.get(
             f'https://lcd-{chain}.cosmostation.io/cosmos/staking/v1beta1/delegations/{user_address}',
             params=params,
@@ -92,7 +92,7 @@ def get_token_amount_complete(user_address):
             'info': get_token_amount_cosmostation(chain=chain, user_address=user_address),
             'price': price,
         }
-    except Exception:
+    except Exception as ex:
         return {
             'info': get_token_amount_guru(chain=chain, user_address=user_address),
             'price': price,

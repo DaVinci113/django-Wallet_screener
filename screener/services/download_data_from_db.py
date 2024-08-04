@@ -5,8 +5,8 @@ from screener.services.parse_data import get_prefix
 def download_price(chain):
     token = TokenInfo.objects.get(chain=chain)
     return token.current_price
-    
-    
+
+
 def address_data_db(user_address):
     address = Address.objects.get(address=user_address)
     prefix = get_prefix(str(address))
@@ -36,6 +36,7 @@ def wallet_data_db(user_wallet):
         wallet_data[address] = address_data_db(address)
         wallet_data['$'] += wallet_data[address]['coast']
     return wallet_data
+
 
 def user_portfolio_data_db(user):
     user_wallets = Wallet.objects.filter(wallet_owner=user)

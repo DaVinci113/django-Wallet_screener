@@ -96,3 +96,4 @@ devision = {
     'saga': 10**6,
 }
 
+time_out = 0.05
