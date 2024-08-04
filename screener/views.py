@@ -30,9 +30,10 @@ def user_wallets(request):
 
 
 def user_wallet_info(request, wallet_id):
+    data = wallet_data_db(wallet_id)
     
     context = {
-        'data': wallet_data_db(wallet_id)
+        'data': data,
     }
     return render(request, 'screener/user_wallet_info.html', context)
 
@@ -79,6 +80,10 @@ def addresses(request, wallet_id):
             'wallet': wallet
         }
     return render(request, 'screener/addresses.html', context)
+
+
+def update(request):
+    return render(request, 'screener/update.html')
 
 
 def update_amount_data(request):

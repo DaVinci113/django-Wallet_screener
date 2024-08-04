@@ -28,9 +28,13 @@ def address_data_db(user_address):
 def wallet_data_db(user_wallet):
     wallet = Wallet.objects.get(id=user_wallet)
     addresses = wallet.address_set.all()
-    wallet_data = {'wallet': wallet}
+    wallet_data = {
+        'wallet': wallet,
+        '$': int()
+    }
     for address in addresses:
         wallet_data[address] = address_data_db(address)
+        wallet_data['$'] += wallet_data[address]['coast']
     return wallet_data
 
 

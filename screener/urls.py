@@ -34,6 +34,9 @@ urlpatterns = [
     # delete address
     path('user_wallets/del_address/<int:address_id>/', views.del_address, name='del_address'),
     
+    # page contains update links
+    path('update/', views.update, name='update'),
+    
     # update list of all chain and all token price
     path('update_data/', views.update_data, name='update_data'),
     
