@@ -53,12 +53,12 @@ headers_ng = {
 name_of_chain = {
     'cosmos': 'cosmos',
     'celestia': 'celestia',
-    'kujira': 'KUJIRA',
-    'evmos': 'EVMOS',
-    'juno': 'JUNO',
+    'kujira': 'kujira',
+    'evmos': 'evmos',
+    'juno': 'juno',
     'nolus': 'nolus-io',
-    'archway': 'ARCHWAY',
-    'inj': 'INJECTIVE',
+    'archway': 'archway',
+    'inj': 'injective',
     'osmo': 'osmosis',
     'dym': 'dymension',
     'saga': 'saga'
@@ -71,12 +71,12 @@ list_of_support_chain = [
 name_of_token = {
     'cosmos': 'ATOM',
     'celestia': 'TIA',
-    'kujira': 'KUJIRA',
+    'kujira': 'KUJI',
     'evmos': 'EVMOS',
     'juno': 'JUNO',
     'nolus': 'NOLUS',
-    'archway': 'ARCHWAY',
-    'injective': 'INJECTIVE',
+    'archway': 'ARCH',
+    'inj': 'INJ',
     'osmo': 'OSMO',
     'dym': 'DYM',
     'saga': 'SAGA'
@@ -90,10 +90,10 @@ devision = {
     'juno': 10**6,
     'nolus': 10**6,
     'archway': 10**18,
-    'injective': 10**18,
+    'inj': 10**18,
     'osmosis': 10**6,
     'dymension': 10**18,
     'saga': 10**6,
 }
 
-time_out = 0.05
+time_out = 0.1
