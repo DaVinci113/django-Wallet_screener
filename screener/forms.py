@@ -16,4 +16,4 @@ class AdressForm(forms.ModelForm):
         model = Address
         fields = ['address']
         label = {'address': ''}
-        
+    

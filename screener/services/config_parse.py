@@ -50,6 +50,10 @@ headers_ng = {
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0',
 }
 
+list_of_support_chain = [
+    'cosmos', 'osmo', 'celestia', 'dym', 'inj', 'juno', 'archway', 'evmos', 'nolus', 'kujira', 'saga',
+]
+
 name_of_chain = {
     'cosmos': 'cosmos',
     'celestia': 'celestia',
@@ -61,12 +65,9 @@ name_of_chain = {
     'inj': 'injective',
     'osmo': 'osmosis',
     'dym': 'dymension',
-    'saga': 'saga'
+    'saga': 'saga',
+    'nim': 'nim-network',
 }
-
-list_of_support_chain = [
-    'cosmos', 'osmo', 'celestia', 'dym', 'inj', 'juno', 'archway', 'evmos', 'nolus', 'kujira', 'saga',
-]
 
 name_of_token = {
     'cosmos': 'ATOM',
@@ -79,7 +80,8 @@ name_of_token = {
     'inj': 'INJ',
     'osmo': 'OSMO',
     'dym': 'DYM',
-    'saga': 'SAGA'
+    'saga': 'SAGA',
+    'nim': 'NIM',
 }
 
 devision = {
@@ -91,9 +93,10 @@ devision = {
     'nolus': 10**6,
     'archway': 10**18,
     'inj': 10**18,
-    'osmosis': 10**6,
-    'dymension': 10**18,
+    'osmo': 10**6,
+    'dym': 10**18,
     'saga': 10**6,
+    'nim': 10**18,
 }
 
 time_out = 0.1
