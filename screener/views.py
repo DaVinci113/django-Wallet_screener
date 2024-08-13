@@ -15,9 +15,11 @@ def index(request):
 
 
 def portfolio(request):
-    data = user_portfolio_data_db(request.user)
+    wallet_data = user_portfolio_data_db(request.user)[0]
+    all_amount = user_portfolio_data_db(request.user)[1]
     context = {
-        'data': data,
+        'wallet_data': wallet_data,
+        'all_amount': all_amount,
     }
     return render(request, 'screener/portfolio.html', context)
 
@@ -38,7 +40,7 @@ def user_wallets(request):
 
 
 def user_wallet_info(request, wallet_id):
-    data = wallet_data_db(wallet_id)
+    data = wallet_data_db(wallet_id, dct=None)
     
     context = {
         'data': data,

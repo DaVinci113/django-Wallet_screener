@@ -9,7 +9,7 @@ def address_to_chain(address):
 
 
 def get_prefix(address):
-    return address[:-39]
+    return str(address)[:-39]
 
 
 def get_price(prefix):
