@@ -1,9 +1,16 @@
 {% extends 'base.html' %}
 {% block content%}
-  <p>INFO about {{ wallet }}</p>
-  {% for key, value in data.items %}
-  <ul>
-    {{ key }} {{ value }}
-  </ul>
+  <p>INFO about {{ data.wallet }} - wallet</p>
+<!--  {{ data }}-->
+<!--  <p>Extra data:</p>-->
+<!--  {% for i in data %}-->
+<!--    <p>{{ i }}</p>-->
+<!--  {% endfor %}-->
+<!--  <p>Extra data:</p>-->
+  {% for keys, values in data.items %}
+    <p>{{ keys }}</p>
+    <p>{{ values }}</p>
   {% endfor %}
+  <ul>
+  </ul>
 {% endblock content%}

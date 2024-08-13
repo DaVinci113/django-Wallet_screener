@@ -17,7 +17,7 @@ def update_amount(user_id):
                 addr.reward = data['info']['reward']
                 addr.save()
             else:
-                addr.staked, addr.reward, addr.reward = 'null', 'null', 'null'
+                addr.staked, addr.reward, addr.reward = '0', '0', '0'
     return 'Data is update'
     
     
