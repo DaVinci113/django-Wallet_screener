@@ -32,7 +32,7 @@ def wallets(request):
 def user_wallets(request):
     """page contains list of user wallets"""
     context = {
-        'user_wallets': Wallet.objects.filter(wallet_owner=request.user)
+        'user_wallets': Wallet.objects.filter(wallet_owner=request.user).select_related('wallet_owner')
     }
     return render(request, 'screener/user_wallets.html', context)
 

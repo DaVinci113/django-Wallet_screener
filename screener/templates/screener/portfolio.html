@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% block content%}
   <p>Your portfolio</p>
-    {% for key, value in data.items %}
+    {% for keys, values in data.items %}
   <ul>
-    {{ key }}{{ value }}
+    {{ keys }}
+    <p>{{ values }}</p>
   </ul>
   {% endfor %}
   <a href="{% url 'screener:add_wallet' %}">Add wallet</a>
