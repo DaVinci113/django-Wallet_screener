@@ -17,7 +17,7 @@ def address_data_db(user_address):
     price = download_price(prefix)
     return {
         # 'chain': prefix,
-        # 'address': user_address,
+        'address': user_address,
         'staked': staked,
         'available': available,
         'reward': reward,
@@ -52,12 +52,12 @@ def wallet_data_db(wallet_id, dct=None):
 
 def user_portfolio_data_db(user):
     user_wallets = Wallet.objects.filter(wallet_owner=user)
-    portfolio_data = {'portfolio $': int()}
+    portfolio_data = {'portfolio_sum': int()}
     portfolio_amount_info = {}
     for user_wallet in user_wallets:
         all_info = wallet_data_db(user_wallet.id, dct=portfolio_amount_info)
         portfolio_data[user_wallet] = all_info[0]
-        portfolio_data['portfolio $'] += all_info[0]['wallet $']
+        portfolio_data['portfolio_sum'] += all_info[0]['wallet $']
         # portfolio_data[user_wallet] = wallet_data_db(user_wallet.id, dct=portfolio_amount_info)[0]
         # portfolio_data['portfolio $'] += portfolio_data[user_wallet]['wallet $']
     return portfolio_data, all_info[1]

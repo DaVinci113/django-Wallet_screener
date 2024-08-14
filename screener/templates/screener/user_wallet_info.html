@@ -1,15 +1,18 @@
 {% extends 'base.html' %}
 {% block content%}
-  <p>INFO about {{ data.wallet }} - wallet</p>
-{{ data }}
+<!--  <p>INFO about {{ data.wallet }} - wallet</p>-->
+<!--{{ wallet_data }}-->
 <!--   Data:-->
 <!--  {{ address }}-->
 <!--  <p>Extra data:</p>-->
-<!--  {% for i in data %}-->
+  {% for i in wallet_data %}
 <!--    <p>{{ i }}</p>-->
-<!--  {% endfor %}-->
+    {% for k, v in i.items %}
+      <p>{{ k }}   {{ v }}</p>
+    {% endfor %}
+  {% endfor %}
 <!--  <p>Extra data:</p>-->
-<!--  {% for keys, values in data.items %}-->
+<!--  {% for keys, values in wallet_data.items %}-->
 <!--    <p>{{ keys }}</p>-->
 <!--    <p>{{ values }}</p>-->
 <!--  {% endfor %}-->
