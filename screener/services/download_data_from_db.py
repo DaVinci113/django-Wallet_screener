@@ -57,7 +57,7 @@ def user_portfolio_data_db(user):
     for user_wallet in user_wallets:
         all_info = wallet_data_db(user_wallet.id, dct=portfolio_amount_info)
         portfolio_data[user_wallet] = all_info[0]
-        portfolio_data['portfolio $'] = all_info[0]['wallet $']
+        portfolio_data['portfolio $'] += all_info[0]['wallet $']
         # portfolio_data[user_wallet] = wallet_data_db(user_wallet.id, dct=portfolio_amount_info)[0]
         # portfolio_data['portfolio $'] += portfolio_data[user_wallet]['wallet $']
     return portfolio_data, all_info[1]
