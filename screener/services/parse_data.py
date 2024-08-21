@@ -4,12 +4,8 @@ from .config_parse import params, headers, headers_ng, cookies, name_of_chain, d
 import time
 
 
-def address_to_chain(address):
-    return address[:-39]
-
-
-def get_prefix(address):
-    return str(address)[:-39]
+def get_prefix(user_address):
+    return str(user_address)[:-39]
 
 
 def get_price(prefix):
