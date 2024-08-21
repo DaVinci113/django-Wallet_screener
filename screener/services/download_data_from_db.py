@@ -29,7 +29,7 @@ def address_data_db(user_address):
 
 def wallet_data_db(wallet_id, dct=None):
     wallet = Wallet.objects.get(id=wallet_id)
-    user_addresses = wallet.address_set.all()
+    user_addresses = wallet.address_set.all().select_related('wallet')
     wallet_data = {'wallet $': int(), 'wallet': wallet}
     for user_address in user_addresses:
         chain = get_prefix(user_address)
@@ -51,7 +51,7 @@ def wallet_data_db(wallet_id, dct=None):
 
 
 def user_portfolio_data_db(user):
-    user_wallets = Wallet.objects.filter(wallet_owner=user)
+    user_wallets = Wallet.objects.filter(wallet_owner=user).select_related('wallet_owner')
     portfolio_data = {'portfolio_sum': int()}
     portfolio_amount_info = {}
     for user_wallet in user_wallets:
@@ -61,3 +61,33 @@ def user_portfolio_data_db(user):
         # portfolio_data[user_wallet] = wallet_data_db(user_wallet.id, dct=portfolio_amount_info)[0]
         # portfolio_data['portfolio $'] += portfolio_data[user_wallet]['wallet $']
     return portfolio_data, all_info[1]
+
+
+def show_portfolio(user):
+    user_wallets = Wallet.objects.filter(wallet_owner=user).select_related('wallet_owner')
+    dct = {}
+    for user_wallet in user_wallets:
+        wallet_info = {}
+        user_addresses = user_wallet.address_set.all().select_related('wallet')
+        for user_address in user_addresses:
+            address_info = {}
+            # chain = get_prefix(str(user_address))
+            # token = TokenInfo.objects.get(chain=chain)
+            staked = user_address.staked
+            available = user_address.available
+            reward = user_address.reward
+            in_address = staked + available + reward
+            # price = token.current_price
+            address_info = {
+                # 'chain': prefix,
+                'address': user_address,
+                'staked': staked,
+                'available': available,
+                'reward': reward,
+                'all': in_address,
+                # 'price': price,
+                # 'coast': in_address * price,
+            }
+            wallet_info[user_address] = address_info
+        dct[user_wallet] = wallet_info
+    return dct

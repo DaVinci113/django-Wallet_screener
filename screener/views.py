@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Wallet, Address
 from .forms import WalletForm, AdressForm
 from .services.update_data import update_amount, update_token_info_table
-from .services.download_data_from_db import wallet_data_db, address_data_db, user_portfolio_data_db
+from .services.download_data_from_db import wallet_data_db, address_data_db, user_portfolio_data_db, show_portfolio
 from .services.create_chain_table import get_table_fill
 
 
@@ -162,3 +162,11 @@ def about(request):
 def contacts(request):
     """page contains ours contacts"""
     return render(request, 'screener/contacts.html')
+
+
+def testing(request):
+    context = {
+        'data': show_portfolio(request.user),
+    }
+    return render(request, 'screener/testing.html', context)
+    
