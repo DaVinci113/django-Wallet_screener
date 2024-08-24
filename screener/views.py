@@ -165,8 +165,11 @@ def contacts(request):
 
 
 def testing(request):
+    data = show_portfolio(request.user)
     context = {
-        'data': show_portfolio(request.user),
+        'data': data,
+        'sum': data['portfolio_sum'],
+        
     }
     return render(request, 'screener/testing.html', context)
     

@@ -4,19 +4,6 @@ from django.core.exceptions import ValidationError
 from screener.services.config_parse import list_of_support_chain
 
 
-def validation_address(user_address):
-    if user_address[:-39] not in list_of_support_chain:
-        raise ValidationError('Unsupported chain or incorrect address!')
-    try:
-        wallet_id = Address.objects.get(address=user_address).wallet_id
-        wallet = Wallet.objects.get(pk=wallet_id)
-        addresses = wallet.address_set.all()
-        if any(addr for addr in addresses if str(addr) == user_address):
-            raise ValidationError('Address is duplicate in this wallet!')
-    except Exception as ex:
-        return ex
-
-
 class WalletForm(forms.ModelForm):
     class Meta:
         model = Wallet
