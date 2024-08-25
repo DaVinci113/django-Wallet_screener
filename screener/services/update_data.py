@@ -23,8 +23,11 @@ def update_amount(user_id):
 def update_token_info_table():
     all_chains = TokenInfo.objects.all()
     for chain in all_chains:
-        chain.current_price = get_price(chain.chain)
-        chain.save()
+        try:
+            chain.current_price = get_price(chain.chain)
+            chain.save()
+        except ValueError:
+            chain.current_price = 0
     return 'Price for all chains update'
     
         

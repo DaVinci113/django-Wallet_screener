@@ -51,7 +51,7 @@ headers_ng = {
 }
 
 list_of_support_chain = [
-    'cosmos', 'osmo', 'celestia', 'dym', 'inj', 'juno', 'archway', 'evmos', 'nolus', 'kujira', 'saga',
+    'cosmos', 'osmo', 'celestia', 'dym', 'inj', 'juno', 'archway', 'evmos', 'kujira', 'saga',
 ]
 
 name_of_chain = {
