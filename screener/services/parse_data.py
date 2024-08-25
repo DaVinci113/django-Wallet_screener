@@ -59,7 +59,11 @@ def get_token_amount_cosmostation(chain, user_address, prefix):
             'reward': reward
         }
     except Exception as ex:
-        return ex
+        return {
+            'stake': 0,
+            'available': 0,
+            'reward': 0,
+        }
     
     
 def get_token_amount_guru(chain, user_address):
@@ -78,7 +82,11 @@ def get_token_amount_guru(chain, user_address):
         }
     
     except Exception as ex:
-        return ex
+        return {
+            'stake': 0,
+            'available': 0,
+            'reward': 0,
+        }
 
 
 def get_token_amount_complete(user_address):
