@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Wallet, Address
 from .forms import WalletForm, AdressForm
 from .services.update_data import update_amount, update_token_info_table
-from .services.download_data_from_db import wallet_data_db, address_data_db, user_portfolio_data_db
+from .services.download_data_from_db import wallet_data_db, address_data_db, user_portfolio_data_db, show_portfolio
 from .services.create_chain_table import get_table_fill
 
 
@@ -15,9 +15,11 @@ def index(request):
 
 
 def portfolio(request):
-    data = user_portfolio_data_db(request.user)
+    wallet_data = user_portfolio_data_db(request.user)[0]
+    all_amount = user_portfolio_data_db(request.user)[1]
     context = {
-        'data': data,
+        'wallet_data': wallet_data,
+        'all_amount': all_amount,
     }
     return render(request, 'screener/portfolio.html', context)
 
@@ -38,10 +40,10 @@ def user_wallets(request):
 
 
 def user_wallet_info(request, wallet_id):
-    data = wallet_data_db(wallet_id)
+    wallet_data = wallet_data_db(wallet_id, dct=None)
     
     context = {
-        'data': data,
+        'wallet_data': wallet_data,
     }
     return render(request, 'screener/user_wallet_info.html', context)
 
@@ -160,3 +162,14 @@ def about(request):
 def contacts(request):
     """page contains ours contacts"""
     return render(request, 'screener/contacts.html')
+
+
+def testing(request):
+    data = show_portfolio(request.user)
+    context = {
+        'data': data,
+        'sum': data['portfolio_sum'],
+        
+    }
+    return render(request, 'screener/testing.html', context)
+    

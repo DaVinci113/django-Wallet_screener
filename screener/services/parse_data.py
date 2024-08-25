@@ -4,24 +4,23 @@ from .config_parse import params, headers, headers_ng, cookies, name_of_chain, d
 import time
 
 
-def address_to_chain(address):
-    return address[:-39]
-
-
-def get_prefix(address):
-    return address[:-39]
+def get_prefix(user_address):
+    return str(user_address)[:-39]
 
 
 def get_price(prefix):
-    time.sleep(time_out)
-    response = requests.get(
-        f'https://coinmarketcap.com/currencies/{name_of_chain[prefix]}/',
-        cookies=cookies,
-        headers=headers,
-    )
-    soup = BeautifulSoup(response.text)
-    price = soup.find(class_='sc-65e7f566-0 clvjgF base-text').text
-    return price[1::]
+    try:
+        time.sleep(time_out)
+        response = requests.get(
+            f'https://coinmarketcap.com/currencies/{name_of_chain[prefix]}/',
+            cookies=cookies,
+            headers=headers,
+        )
+        soup = BeautifulSoup(response.text)
+        price = soup.find(class_='sc-65e7f566-0 clvjgF base-text').text
+        return price[1::]
+    except Exception:
+        return 0
 
 
 def get_token_amount_cosmostation(chain, user_address, prefix):
@@ -60,7 +59,11 @@ def get_token_amount_cosmostation(chain, user_address, prefix):
             'reward': reward
         }
     except Exception as ex:
-        return ex
+        return {
+            'stake': 0,
+            'available': 0,
+            'reward': 0,
+        }
     
     
 def get_token_amount_guru(chain, user_address):
@@ -79,7 +82,11 @@ def get_token_amount_guru(chain, user_address):
         }
     
     except Exception as ex:
-        return ex
+        return {
+            'stake': 0,
+            'available': 0,
+            'reward': 0,
+        }
 
 
 def get_token_amount_complete(user_address):

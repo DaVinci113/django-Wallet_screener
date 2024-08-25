@@ -54,4 +54,7 @@ urlpatterns = [
     
     # page contains ours contacts
     path('contacts/', views.contacts, name='contacts'),
+    
+    # testing page
+    path('testing/', views.testing, name='testing'),
 ]
