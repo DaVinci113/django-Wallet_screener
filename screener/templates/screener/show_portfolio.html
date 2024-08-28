@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content%}
+All wallets in your portfolio
+{% for key, value in data.items %}
+  <ul>
+    {{ key }} - $ {{ value.wallet_sum }}
+  </ul>
+<!--    {% for k, v in value.items %}-->
+<!--    <ul>-->
+<!--      {% for i, j in v.items %}-->
+<!--        {{ i }}: {{ j }}-->
+<!--      {% endfor %}-->
+<!--    </ul>-->
+<!--    {% endfor %}-->
+{% endfor %}
+
+All amout in your portfolio $ {{ sum }}
+  <p> </p>
+  {% for key, value in amount.items %}
+    <li>
+      {{key}}:
+      {% for i, j in value.items %}
+      {{ i }}
+      {{ j }}
+    {% endfor %}
+    </li>
+    <ul>
+<!--    {% for i, j in value.items %}-->
+<!--      {{ i }}-->
+<!--      {{ j }}-->
+<!--    {% endfor %}-->
+    </ul>
+  {% endfor %}
+{% endblock content%}
+
