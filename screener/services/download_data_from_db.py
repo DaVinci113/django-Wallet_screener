@@ -64,32 +64,66 @@ def user_portfolio_data_db(user):
 
 
 def show_portfolio(user):
-    user_wallets = Wallet.objects.filter(wallet_owner=user).select_related('wallet_owner')
+    tokens_price = TokenInfo.objects.values()
+    user_wallets = Wallet.objects.filter(wallet_owner=user)
     dct = {'portfolio_sum': int()}
     for user_wallet in user_wallets:
         wallet_info = {'wallet_sum': int()}
-        user_addresses = user_wallet.address_set.all().select_related('wallet')
+        user_addresses = user_wallet.address_set.all()
         for user_address in user_addresses:
             chain = get_prefix(str(user_address))
-            staked = user_address.staked
-            available = user_address.available
-            reward = user_address.reward
-            in_address = staked + available + reward
-            token = TokenInfo.objects.get(chain=chain)
-            price = token.current_price
-            
-            address_info = {
-                'chain': chain,
-                'address': user_address,
-                'staked': staked,
-                'available': available,
-                'reward': reward,
-                'all': in_address,
-                'price': price,
-                'cost': in_address * price,
-            }
-            wallet_info[user_address] = address_info
-            wallet_info['wallet_sum'] += address_info['cost']
+            for token in tokens_price:
+                if token['chain'] == chain:
+                    staked = user_address.staked
+                    available = user_address.available
+                    reward = user_address.reward
+                    in_address = staked + available + reward
+                    price = token['current_price']
+
+                    address_info = {
+                        'chain': chain,
+                        'address': user_address,
+                        'staked': staked,
+                        'available': available,
+                        'reward': reward,
+                        'all': in_address,
+                        'price': price,
+                        'cost': in_address * price,
+                    }
+                    wallet_info[user_address] = address_info
+                    wallet_info['wallet_sum'] += address_info['cost']
         dct[user_wallet] = wallet_info
         dct['portfolio_sum'] += wallet_info['wallet_sum']
     return dct
+
+
+# def show_portfolio(user):
+#     user_wallets = Wallet.objects.filter(wallet_owner=user)
+#     dct = {'portfolio_sum': int()}
+#     for user_wallet in user_wallets:
+#         wallet_info = {'wallet_sum': int()}
+#         user_addresses = user_wallet.address_set.all()
+#         for user_address in user_addresses:
+#             chain = get_prefix(str(user_address))
+#             staked = user_address.staked
+#             available = user_address.available
+#             reward = user_address.reward
+#             in_address = staked + available + reward
+#             token = TokenInfo.objects.get(chain=chain)
+#             price = token.current_price
+#
+#             address_info = {
+#                 'chain': chain,
+#                 'address': user_address,
+#                 'staked': staked,
+#                 'available': available,
+#                 'reward': reward,
+#                 'all': in_address,
+#                 'price': price,
+#                 'cost': in_address * price,
+#             }
+#             wallet_info[user_address] = address_info
+#             wallet_info['wallet_sum'] += address_info['cost']
+#         dct[user_wallet] = wallet_info
+#         dct['portfolio_sum'] += wallet_info['wallet_sum']
+#     return dct

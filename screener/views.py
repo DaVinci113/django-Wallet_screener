@@ -15,13 +15,13 @@ def index(request):
 
 
 def portfolio(request):
-    wallet_data = user_portfolio_data_db(request.user)[0]
-    all_amount = user_portfolio_data_db(request.user)[1]
+    data = show_portfolio(request.user)
     context = {
-        'wallet_data': wallet_data,
-        'all_amount': all_amount,
+        'data': data,
+        'sum': data['portfolio_sum'],
+        
     }
-    return render(request, 'screener/portfolio.html', context)
+    return render(request, 'screener/show_portfolio.html', context)
 
 
 def wallets(request):
@@ -162,14 +162,4 @@ def about(request):
 def contacts(request):
     """page contains ours contacts"""
     return render(request, 'screener/contacts.html')
-
-
-def testing(request):
-    data = show_portfolio(request.user)
-    context = {
-        'data': data,
-        'sum': data['portfolio_sum'],
-        
-    }
-    return render(request, 'screener/testing.html', context)
     

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content%}
+{{ sum }}
+{{ data_portfolio }}
+{% for key, value in data.items %}
+  <li>{{ key }}</li>
+<!--  {{ value }}-->
+    {% for k, v in value.items %}
+    <ul>
+      {% for i, j in v.items %}
+        {{ i }}: {{ j }}
+      {% endfor %}
+    </ul>
+    {% endfor %}
+{% endfor %}
+{% endblock content%}
+
