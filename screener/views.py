@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Wallet, Address
 from .forms import WalletForm, AdressForm
 from .services.update_data import update_amount, update_token_info_table
-from .services.download_data_from_db import wallet_data_db, address_data_db, user_portfolio_data_db, show_portfolio
+from .services.download_data_from_db import wallet_data_db, address_data_db, portfolio_data_db
 from .services.create_chain_table import get_table_fill
 
 
@@ -15,10 +15,11 @@ def index(request):
 
 
 def portfolio(request):
-    data = show_portfolio(request.user)
+    data = portfolio_data_db(request.user)
     context = {
-        'data': data,
-        'sum': data['portfolio_sum'],
+        'data': data[0],
+        'sum': data[0]['portfolio_sum'],
+        'amount': data[1]
         
     }
     return render(request, 'screener/show_portfolio.html', context)
@@ -40,16 +41,14 @@ def user_wallets(request):
 
 
 def user_wallet_info(request, wallet_id):
-    wallet_data = wallet_data_db(wallet_id, dct=None)
-    
     context = {
-        'wallet_data': wallet_data,
+        'wallet_data': wallet_data_db(wallet_id),
     }
     return render(request, 'screener/user_wallet_info.html', context)
 
 
 def add_wallet(request):
-    """Add wallet to user"""
+    """Add wallet to user portfolio"""
     if request.method != 'POST':
         form = WalletForm()
     else:
