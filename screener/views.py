@@ -32,12 +32,12 @@ def wallets(request):
     return render(request, 'screener/wallets.html', context)
 
 
-def user_wallets(request):
+def manage_portfolio(request):
     """page contains list of user wallets"""
     context = {
         'user_wallets': Wallet.objects.filter(wallet_owner=request.user).select_related('wallet_owner')
     }
-    return render(request, 'screener/user_wallets.html', context)
+    return render(request, 'screener/manage_portfolio.html', context)
 
 
 def user_wallet_info(request, wallet_id):
@@ -106,6 +106,7 @@ def update_amount_data(request):
 def update_data(request):
     """ Update list of chain and price for all supported token """
     context = {
+        'text': update_token_info_table(),
         'text': update_token_info_table(),
     }
     return render(request, 'screener/index.html', context)
