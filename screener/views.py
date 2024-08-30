@@ -98,7 +98,7 @@ def update(request):
 def update_amount_data(request):
     """ update token amount for all user addresses """
     context = {
-        'text': update_amount(request.user),
+        'text': update_amount(),
     }
     return render(request, 'screener/index.html', context)
 

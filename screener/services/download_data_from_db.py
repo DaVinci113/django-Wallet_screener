@@ -57,6 +57,7 @@ def portfolio_data_db(user: int) -> dict:
                     'available': 0,
                     'reward': 0,
                     'all': 0,
+                    'price': 0,
                     'cost': 0,
                 }
             address_info = address_data_db(user_address=user_address, tokens_price=tokens_price)
@@ -65,8 +66,10 @@ def portfolio_data_db(user: int) -> dict:
             all_amount[chain]['reward'] += address_info['reward']
             all_amount[chain]['all'] += address_info['all']
             all_amount[chain]['cost'] += address_info['cost']
+            if not all_amount[chain]['price']:
+                all_amount[chain]['price'] = address_info['price']
             wallet_info[user_address] = address_info
-            wallet_info['wallet_sum'] += address_info['cost']
+            wallet_info['wallet_sum'] += round(address_info['cost'], 2)
         portfolio_info[user_wallet] = wallet_info
-        portfolio_info['portfolio_sum'] += wallet_info['wallet_sum']
+        portfolio_info['portfolio_sum'] += round(wallet_info['wallet_sum'], 2)
     return portfolio_info, all_amount

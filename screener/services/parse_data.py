@@ -1,6 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 from .config_parse import params, headers, headers_ng, cookies, name_of_chain, devision, time_out
+import aiohttp
+import asyncio
 import time
 
 
@@ -102,5 +104,5 @@ def get_token_amount_complete(user_address):
             'info': get_token_amount_guru(chain=chain, user_address=user_address),
         }
             
-            
         
+
