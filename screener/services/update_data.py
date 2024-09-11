@@ -1,6 +1,7 @@
 from screener.models import Wallet, Address, TokenInfo
 from .config_parse import list_of_support_chain
 from .parse_data import get_token_amount_complete, get_prefix, get_price
+from .async_parse import a_get_token_amount_cosmostation
 
 
 def update_amount():
